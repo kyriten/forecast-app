@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import AirQualityCard from "./components/AirQualityCard";
+import ForecastCard from "./components/ForecastCard";
+import PredictionSection from "./components/PredictionSection";
+import PollutantModal from "./components/PollutantModal";
+import CurrentClock from "./components/CurrentClock";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -67,7 +72,9 @@ function App() {
 
   const fetchAirQuality = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/api/v1/air-quality");
+      const { data } = await axios.get(
+        "http://localhost:8000/api/v1/air-quality"
+      );
       setCurrentAirQuality(data);
     } catch (error) {
       console.error("Error fetching air quality data", error);
@@ -358,7 +365,8 @@ function App() {
                               <h6
                                 className="card-title mb-0"
                                 style={{ pointerEvents: "none" }}>
-                                {pollutant} {mapeValue && (
+                                {pollutant}{" "}
+                                {mapeValue && (
                                   <div
                                     className="badge badge-light"
                                     style={{
@@ -427,7 +435,6 @@ function App() {
                               <div
                                 className="card-text mb-0"
                                 style={{ pointerEvents: "none" }}>
-                                  
                                 <p
                                   className="badge"
                                   style={{ backgroundColor: color }}>
@@ -437,7 +444,7 @@ function App() {
                                   className="ms-2"
                                   style={{ fontSize: "10px" }}>
                                   µg/m³
-                                </span>                                
+                                </span>
                               </div>
                             </div>
                           </div>
