@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "font-awesome/css/font-awesome.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
   useEffect(() => {
     const fetchMape = async () => {
       try {
-        const response = await axios.get("api/v1/mape");
+        const response = await axios.get("http://localhost:8000/api/v1/mape");
         setMapeResults(response.data);
       } catch (err) {
         setError("Failed to fetch MAPE data");
@@ -65,7 +67,7 @@ function App() {
 
   const fetchAirQuality = async () => {
     try {
-      const { data } = await axios.get("api/v1/air-quality");
+      const { data } = await axios.get("http://localhost:8000/api/v1/air-quality");
       setCurrentAirQuality(data);
     } catch (error) {
       console.error("Error fetching air quality data", error);
@@ -74,7 +76,7 @@ function App() {
 
   const fetchForecast = async () => {
     try {
-      const { data } = await axios.get("api/v1/forecast");
+      const { data } = await axios.get("http://localhost:8000/api/v1/forecast");
       console.log("Forecast API Response:", data);
       setForecast(data);
     } catch (error) {
@@ -100,7 +102,7 @@ function App() {
       const formattedDateString = formattedDate.toISOString().split("T")[0];
 
       const { data } = await axios.get(
-        `api/v1/predict/${formattedDateString}`
+        `http://localhost:8000/api/v1/predict/${formattedDateString}`
       );
       console.log("API Response:", data);
 
