@@ -23,7 +23,7 @@ app.add_middleware(
 # Load dan siapkan data
 df = pd.read_csv("processed_pollutants.csv")
 df["Waktu"] = pd.to_datetime(df["Waktu"])
-pollutants = ["PM10", "PM2.5", "SO2", "CO", "O3", "NO2", "HC"]
+pollutants = ["PM10", "PM25", "SO2", "CO", "O3", "NO2", "HC"]
 
 for col in pollutants:
     df[col] = pd.to_numeric(df[col], errors="coerce")
