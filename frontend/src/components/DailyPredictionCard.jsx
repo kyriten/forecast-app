@@ -1,19 +1,37 @@
 import React from "react";
+import { SkeletonLoaderForecast } from "./SkeletonLoader";
+
+// const SkeletonLoader = () => {
+//   const shimmerStyle = {
+//     height: "12px",
+//     width: "120px",
+//     borderRadius: "6px",
+//     background: "linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%)",
+//     backgroundSize: "200% 100%",
+//     animation: "skeletonShimmer 1.2s infinite",
+//     margin: "0 auto",
+//   };
+
+//   return (
+//     <div className="text-center w-100">
+//       <div style={shimmerStyle}></div>
+//     </div>
+//   );
+// };
 
 const DailyPredictionCard = ({ forecast, formatDate, getColorByISPU }) => {
   return (
     <section className="my-2 col-md-6 col-lg-6">
       <div className="row">
-        <div className="card">
-          
+        <div className="card pb-3">
           <h6 className="card-title text-start my-3">Prediksi setiap hari</h6>
 
           {Object.keys(forecast).length === 0 ? (
-            <p
-              className="text-muted text-center animate-fade"
-              style={{ fontSize: "10px" }}>
-              Sedang mengolah model...
-            </p>
+            <>
+              {[...Array(1)].map((_, index) => (
+                <SkeletonLoaderForecast key={index} />
+              ))}
+            </>
           ) : (
             <div
               className="card-container overflow-auto d-flex rounded"
@@ -79,7 +97,7 @@ const DailyPredictionCard = ({ forecast, formatDate, getColorByISPU }) => {
                                 {pollutant === "PM10" && (
                                   <i style={{ marginRight: "10px" }}>💨</i>
                                 )}
-                                {pollutant === "PM2.5" && (
+                                {pollutant === "PM25" && (
                                   <i style={{ marginRight: "10px" }}>⚙️</i>
                                 )}
                                 {pollutant === "SO2" && (

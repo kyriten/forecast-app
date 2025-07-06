@@ -1,4 +1,5 @@
 import React from "react";
+import { SkeletonMainPollutant } from "./SkeletonLoader";
 
 const Header = ({
   currentTime,
@@ -39,13 +40,10 @@ const Header = ({
       <div className="col-8 col-md-5 col-lg-3">
         <div className="card-body">
           {Object.keys(currentAirQuality).length === 0 ? (
-            <p
-              className="text-muted text-center animate-fade"
-              style={{ fontSize: "10px" }}>
-              Sedang mengolah model...
-            </p>
+            <SkeletonMainPollutant />
           ) : (
             Object.keys(currentAirQuality)
+              .filter((pollutant) => pollutant === "PM25")
               .map((pollutant) => {
                 const airQualityData = currentAirQuality[pollutant];
                 return {
@@ -54,12 +52,12 @@ const Header = ({
                   prediction: airQualityData.prediction,
                 };
               })
-              .sort((a, b) => b.prediction - a.prediction)
-              .slice(0, 1)
+              // .sort((a, b) => b.prediction - a.prediction)
+              // .slice(0, 1)
               .map(({ pollutant, timestamp, prediction }) => {
                 const color = getColorByISPU(prediction);
                 const level = getLevelByISPU(prediction);
-
+                // Polutan Utama
                 return (
                   <div key={pollutant} className="mb-3">
                     <div
@@ -149,7 +147,7 @@ function getPollutantDescription(pollutant) {
       return "Ozon";
     case "PM10":
       return "Materi Partikulat di bawah 10 mikron";
-    case "PM2.5":
+    case "PM25":
       return "Partikel halus di bawah 2,5 mikron";
     case "SO2":
       return "Sulfur Dioksida";

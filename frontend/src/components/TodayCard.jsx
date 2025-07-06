@@ -1,4 +1,5 @@
 import React from "react";
+import { SkeletonLoader } from "./SkeletonLoader";
 
 const TodayCard = ({
   currentAirQuality,
@@ -23,11 +24,11 @@ const TodayCard = ({
           <div className="card-body mt-0">
             <div className="row">
               {Object.keys(currentAirQuality).length === 0 ? (
-                <p
-                  className="text-muted text-center animate-fade"
-                  style={{ fontSize: "10px" }}>
-                  Sedang mengolah model...
-                </p>
+                <>
+                  {[...Array(7)].map((_, index) => (
+                    <SkeletonLoader key={index} />
+                  ))}
+                </>
               ) : (
                 Object.keys(currentAirQuality).map((pollutant) => {
                   const airQualityData = currentAirQuality[pollutant];

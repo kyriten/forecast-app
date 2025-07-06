@@ -75,7 +75,6 @@ def model_for_mape(data, column):
         model_cache[column] = model
     return model_cache[column]
 
-
 def get_forecasts():
     forecasts = {}
     today = datetime.now().date()
@@ -89,7 +88,6 @@ def get_forecasts():
         forecasts[pollutant] = forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]]
 
     return forecasts
-
 
 @app.get("/api/v1/air-quality")
 def get_air_quality():
@@ -124,7 +122,6 @@ def get_air_quality():
         traceback.print_exc()
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
-
 @app.get("/api/v1/forecast")
 def forecast():
     try:
@@ -156,7 +153,6 @@ def forecast():
     except Exception as e:
         traceback.print_exc()
         return JSONResponse(content={"error": str(e)}, status_code=500)
-
 
 @app.get("/api/v1/predict/{date}")
 def predict(date: str):
@@ -208,7 +204,6 @@ def predict(date: str):
         traceback.print_exc()
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
-
 @app.get("/api/v1/mape")
 def get_all_mape():
     results = {}
@@ -226,7 +221,6 @@ def get_all_mape():
             results[pollutant] = {"error": str(e)}
 
     return JSONResponse(content=results)
-
 
 @app.get("/api/data")
 def get_csv_data():

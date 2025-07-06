@@ -14,7 +14,8 @@ function App() {
   const [specificDatePrediction, setSpecificDatePrediction] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showPollutantModal, setShowPollutantModal] = useState(false);
+  const [showForecastModal, setShowForecastModal] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedPollutant, setSelectedPollutant] = useState(null);
   const [mapeResults, setMapeResults] = useState({});
@@ -123,16 +124,6 @@ function App() {
     }
   };
 
-  const handleCardClick = (pollutant, airQualityData) => {
-    setSelectedPollutant({ pollutant, airQualityData });
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedPollutant(null);
-  };
-
   function formatDate(dateString) {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("id-ID", {
@@ -154,7 +145,7 @@ function App() {
     <div className="mx-4 my-2">
       <Header
         currentTime={currentTime}
-        setShowModal={setShowModal}
+        setShowModal={setShowForecastModal}
         loading={loading}
         currentAirQuality={currentAirQuality}
         getColorByISPU={getColorByISPU}
@@ -167,10 +158,13 @@ function App() {
           currentAirQuality={currentAirQuality}
           getColorByISPU={getColorByISPU}
           mapeResults={mapeResults}
-          handleCardClick={handleCardClick}
-          showModal={showModal}
+          handleCardClick={(pollutant, airQualityData) => {
+            setSelectedPollutant({ pollutant, airQualityData });
+            setShowPollutantModal(true);
+          }}
+          showModal={showPollutantModal}
           selectedPollutant={selectedPollutant}
-          handleCloseModal={handleCloseModal}
+          handleCloseModal={() => setShowPollutantModal(false)}
         />
 
         <DailyPredictionCard
@@ -181,8 +175,8 @@ function App() {
       </section>
 
       <ForecastByDate
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={showForecastModal}
+        setShowModal={setShowForecastModal}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
         getPrediction={getPrediction}
